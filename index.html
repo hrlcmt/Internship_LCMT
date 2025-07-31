@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รับสมัครนักศึกษาฝึกงาน - LCB1 Group</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-image: url('https://img2.pic.in.th/pic/Screenshot-2025-07-30-141639.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        /* Add a semi-transparent overlay to improve readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+            z-index: -1;
+        }
+        .job-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0; /* Initially hidden for animation */
+            transform: translateY(20px); /* Start slightly lower for animation */
+            animation: slideUpFadeIn 0.6s ease-out forwards;
+        }
+        .job-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .btn-primary {
+            background-color: #10B981; /* Emerald-500 */
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #059669; /* Emerald-600 */
+            transform: scale(1.05);
+        }
+        .btn-secondary {
+            background-color: #6B7280; /* Gray-500 */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #4B5563; /* Gray-600 */
+        }
+        
+        /* Modal Transitions */
+        .modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .modal.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+        .modal:not(.hidden) {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Preloader styles */
+        #preloader {
+            transition: opacity 0.5s ease-out;
+        }
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #10B981; /* Emerald-500 */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes slideUpFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-white flex items-center justify-center z-[100]">
+        <div class="loader"></div>
+    </div>
+
+    <div id="main-container" class="container mx-auto p-4 sm:p-8">
+        
+        <!-- Main Page View -->
+        <div id="main-page">
+            <header class="text-center mb-10">
+                <h1 class="text-4xl md:text-5xl font-bold text-white">รับสมัครนักศึกษาฝึกงาน</h1>
+                <p class="text-lg text-gray-200 mt-2 font-medium">LCB1 Group - Internship Program 2025</p>
+            </header>
+
+            <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Job Card: IT -->
+                <div class="job-card bg-white rounded-xl overflow-hidden shadow-lg flex flex-col">
+                    <img src="https://img2.pic.in.th/pic/ChatGPT-Image-30-..-2568-16_59_00.png" alt="ภาพประกอบตำแหน่ง IT" class="w-full h-80 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1E40AF/FFFFFF?text=IT';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h2 class="text-2xl font-bold mb-4 text-center flex-grow">IT</h2>
+                        <button onclick="showDetail('it')" class="w-full btn-primary font-semibold py-2 px-4 rounded-lg mt-auto">
+                            ดูรายละเอียด
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Job Card: Accounting -->
+                <div class="job-card bg-white rounded-xl overflow-hidden shadow-lg flex flex-col" style="animation-delay: 0.1s;">
+                    <img src="https://img5.pic.in.th/file/secure-sv1/ChatGPT-Image-30-..-2568-17_02_47.png" alt="ภาพประกอบตำแหน่ง Accounting" class="w-full h-80 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/34D399/FFFFFF?text=Accounting';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h2 class="text-2xl font-bold mb-4 text-center flex-grow">Accounting</h2>
+                        <button onclick="showDetail('accounting')" class="w-full btn-primary font-semibold py-2 px-4 rounded-lg mt-auto">
+                            ดูรายละเอียด
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Job Card: Logistic -->
+                <div class="job-card bg-white rounded-xl overflow-hidden shadow-lg flex flex-col" style="animation-delay: 0.2s;">
+                    <img src="https://img2.pic.in.th/pic/ChatGPT-Image-30-..-2568-17_11_08.png" alt="ภาพประกอบตำแหน่ง Logistic" class="w-full h-80 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F97316/FFFFFF?text=Logistic';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h2 class="text-2xl font-bold mb-4 text-center flex-grow">Logistic</h2>
+                        <button onclick="showDetail('logistic')" class="w-full btn-primary font-semibold py-2 px-4 rounded-lg mt-auto">
+                            ดูรายละเอียด
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Job Card: Engineering -->
+                <div class="job-card bg-white rounded-xl overflow-hidden shadow-lg flex flex-col" style="animation-delay: 0.3s;">
+                    <img src="https://img2.pic.in.th/pic/ChatGPT-Image-31-..-2568-09_02_34.png" alt="ภาพประกอบตำแหน่ง Engineering" class="w-full h-80 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/6366F1/FFFFFF?text=Engineering';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h2 class="text-2xl font-bold mb-4 text-center flex-grow">Engineering</h2>
+                        <button onclick="showDetail('engineering')" class="w-full btn-primary font-semibold py-2 px-4 rounded-lg mt-auto">
+                            ดูรายละเอียด
+                        </button>
+                    </div>
+                </div>
+            </main>
+            
+            <!-- Benefits Button Section -->
+            <div class="text-center mt-16">
+                <button id="benefits-button" class="btn-primary font-semibold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-lg">
+                    สวัสดิการ
+                </button>
+            </div>
+
+            <footer class="text-center mt-8 pt-8 border-t border-gray-600">
+                <p class="text-gray-200 mb-4 text-lg font-medium">ติดตามข่าวสารและข้อมูลเพิ่มเติม</p>
+                <div class="flex justify-center items-center space-x-6 md:space-x-8">
+                    <!-- Facebook Link -->
+                    <a href="https://www.facebook.com/LCB1LCMT" target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-blue-400 transition-colors duration-300 flex items-center group">
+                        <svg class="w-8 h-8 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-2 font-semibold group-hover:underline">Facebook</span>
+                    </a>
+                    <!-- LINE Link -->
+                    <a href="https://lin.ee/KTMZF9kp" target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:opacity-80 transition-opacity duration-300 flex items-center group">
+                        <img src="https://img2.pic.in.th/pic/Screenshot-2025-07-30-155818.png" alt="LINE Official Account" class="w-8 h-8 transition-transform duration-300 group-hover:scale-110">
+                        <span class="ml-2 font-semibold group-hover:underline">LINE Official</span>
+                    </a>
+                    <!-- Website Link -->
+                    <a href="https://www.lcb1.com/" target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-emerald-400 transition-colors duration-300 flex items-center group">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 transition-transform duration-300 group-hover:scale-110">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A11.953 11.953 0 0112 13.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0a8.997 8.997 0 01-7.843 4.582M12 21a8.997 8.997 0 007.843-4.582M12 3a8.997 8.997 0 00-7.843 4.582" />
+                        </svg>
+                        <span class="ml-2 font-semibold group-hover:underline">Website LCB1</span>
+                    </a>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Detail Pages Container -->
+        <div id="detail-pages" class="hidden">
+            <button onclick="showMainPage()" class="btn-secondary font-semibold py-2 px-6 rounded-lg mb-8 inline-flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                กลับหน้าหลัก
+            </button>
+            <div class="bg-white rounded-xl shadow-2xl max-w-5xl mx-auto overflow-hidden">
+                <div class="flex flex-col md:flex-row">
+                    <!-- Left Green Bar with Image -->
+                    <div class="w-full md:w-1/5 bg-emerald-500 p-2 flex-shrink-0">
+                        <img id="detail-image" src="" alt="Job Image" class="w-full h-48 md:h-full object-cover rounded-md">
+                    </div>
+                    <!-- Right White Content Area -->
+                    <div id="detail-text-content" class="w-full md:w-4/5 p-6 md:p-10">
+                        <!-- Content will be injected here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- Application Form Modal -->
+    <div id="application-modal" class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-10 mx-auto p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-2xl leading-6 font-bold text-gray-900">แบบฟอร์มสมัครฝึกงาน</h3>
+                <form id="application-form" class="mt-4 px-7 py-3 space-y-4 text-left">
+                    <div>
+                        <label for="fullName" class="text-md font-medium text-gray-700">ชื่อ-นามสกุล</label>
+                        <input type="text" name="fullName" id="fullName" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                    <div>
+                        <label for="position" class="text-md font-medium text-gray-700">ตำแหน่งที่สมัคร</label>
+                        <select name="position" id="position" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" required>
+                            <option value="">-- กรุณาเลือกตำแหน่ง --</option>
+                            <option value="IT">IT</option>
+                            <option value="Accounting">Accounting</option>
+                            <option value="Logistic">Logistic</option>
+                            <option value="Engineering">Engineering</option>
+                        </select>
+                    </div>
+                     <div>
+                        <label for="email" class="text-md font-medium text-gray-700">Email</label>
+                        <input type="email" name="email" id="email" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                     <div>
+                        <label for="phone" class="text-md font-medium text-gray-700">เบอร์โทรศัพท์</label>
+                        <input type="tel" name="phone" id="phone" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                     <div>
+                        <label for="university" class="text-md font-medium text-gray-700">มหาวิทยาลัย</label>
+                        <input type="text" name="university" id="university" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                     <div>
+                        <label for="year" class="text-md font-medium text-gray-700">ชั้นปี</label>
+                        <input type="number" name="year" id="year" min="1" max="6" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                    <div>
+                        <label for="major" class="text-md font-medium text-gray-700">สาขาวิชา</label>
+                        <input type="text" name="major" id="major" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                         <div>
+                            <label for="startDate" class="text-md font-medium text-gray-700">วันที่เริ่มฝึกงาน</label>
+                            <input type="date" name="startDate" id="startDate" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" required>
+                        </div>
+                        <div>
+                            <label for="endDate" class="text-md font-medium text-gray-700">วันที่สิ้นสุดการฝึกงาน</label>
+                            <input type="date" name="endDate" id="endDate" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" required>
+                        </div>
+                    </div>
+                     <div>
+                        <label for="duration" class="text-md font-medium text-gray-700">ระยะเวลาฝึกงาน (เดือน)</label>
+                        <input type="number" name="duration" id="duration" min="1" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                </form>
+                <div class="items-center px-4 py-3">
+                    <button id="submit-button" class="w-full btn-primary font-bold py-2 px-4 rounded-lg shadow-md">
+                        ส่งใบสมัคร
+                    </button>
+                    <button id="close-modal-button" class="mt-3 w-full bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-300">
+                        ยกเลิก
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Message Modal -->
+    <div id="success-modal" class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mt-4">ส่งใบสมัครสำเร็จ!</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-sm text-gray-500">
+                        ทีมงานได้รับข้อมูลของคุณแล้ว และจะติดต่อกลับไปโดยเร็วที่สุด ขอบคุณที่ให้ความสนใจ
+                    </p>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button id="close-success-button" class="w-full btn-primary font-bold py-2 px-4 rounded-lg">
+                        ตกลง
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits Modal -->
+    <div id="benefits-modal" class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-emerald-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01" />
+                    </svg>
+                </div>
+                <h3 class="text-2xl leading-6 font-bold text-gray-900 mt-4">สวัสดิการสำหรับนักศึกษาฝึกงาน</h3>
+                <div class="mt-4 px-7 py-3 text-left">
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><b>เบี้ยเลี้ยง:</b> 100 บาท/วัน</li>
+                        <li><b>รถรับส่ง:</b> ให้บริการตามจุดที่บริษัทกำหนดเท่านั้น</li>
+                    </ul>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button id="close-benefits-button" class="w-full btn-primary font-bold py-2 px-4 rounded-lg">
+                        เข้าใจแล้ว
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Error Modal for Script URL -->
+    <div id="error-modal" class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                    <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mt-4">เกิดข้อผิดพลาด</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p id="error-message" class="text-sm text-gray-500"></p>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button id="close-error-button" class="w-full bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600">
+                        ตกลง
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for job details
+        const jobDetails = {
+            it: {
+                title: "AI Assistant & Development",
+                department: "ฝ่ายเทคโนโลยี",
+                imageUrl: "https://img2.pic.in.th/pic/ChatGPT-Image-30-..-2568-16_59_00.png",
+                content: `
+                    <p class="text-lg text-gray-600 mb-6">เปิดรับสมัคร Internship Program สายเทคโนโลยี! โดย LCB1 Group บริษัทชั้นนำในอุตสาหกรรมโลจิสติกส์และเทคโนโลยี ณ ท่าเรือแหลมฉบัง B1&A0</p>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">ข้อมูลการฝึกงาน</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><b>ระยะเวลา:</b> 2–3 เดือน</li>
+                                <li><b>จำนวนที่รับ:</b> 5 คน</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">คุณสมบัติ</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>กำลังศึกษาในระดับมหาวิทยาลัย สาขา Computer Science, IT หรือสาขาที่เกี่ยวข้อง</li>
+                                <li>รักในการเขียนโค้ดและมีความสนใจในการพัฒนาระบบอัตโนมัติ</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">หน้าที่ความรับผิดชอบ</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>เรียนรู้และพัฒนา Automated Workflows ด้วย AI, n8n, RPA และ Bash Script</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">สิ่งที่คุณจะได้รับจากโปรแกรมนี้</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>ได้เรียนรู้การใช้เทคโนโลยี AI และ Automation ในการทำงานจริง</li>
+                                <li>ได้รับประสบการณ์ DevSecOps พร้อมใช้งาน IaC (Infrastructure as Code)</li>
+                                <li>เรียนรู้กับผู้เชี่ยวชาญที่มีใบรับรองระดับโลก เช่น แชมป์ประเทศไทย National Linux Competition, CISSP, RHCE, CHFI, Security+, ENARSI, DCACI, PowerBI, AWS Architect</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            accounting: {
+                title: "นักศึกษาฝึกงานฝ่ายบัญชี",
+                department: "Accounting Intern",
+                imageUrl: "https://img5.pic.in.th/file/secure-sv1/ChatGPT-Image-30-..-2568-17_02_47.png",
+                content: `
+                    <p class="text-lg text-gray-600 mb-6">หัวข้องาน: สนับสนุนงานด้านการเงินและบัญชี</p>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">ข้อมูลการฝึกงาน</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><b>ระยะเวลา:</b> 3–4 เดือน</li>
+                                <li><b>จำนวนที่รับ:</b> 1 คน</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">คุณสมบัติ</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>กำลังศึกษาระดับปริญญาตรี สาขาบัญชี หรือสาขาที่เกี่ยวข้อง</li>
+                                <li>มีความละเอียด รอบคอบ และมีความรับผิดชอบสูง</li>
+                                <li>มีทักษะในการสื่อสารและการทำงานร่วมกับผู้อื่นได้ดี</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">ลักษณะงานและความรับผิดชอบ</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>ตรวจสอบความถูกต้องของเอกสารทางบัญชี เช่น ใบกำกับภาษี, ใบเสร็จรับเงิน, ใบแจ้งหนี้</li>
+                                <li>ตรวจสอบความครบถ้วนของเอกสารใบสำคัญจ่าย (Payment Voucher)</li>
+                                <li>จัดทำและนำส่งหนังสือรับรองหักภาษี ณ ที่จ่ายให้แก่คู่ค้า</li>
+                                <li>จัดเก็บเอกสารและสนับสนุนงานอื่นๆ ตามที่ได้รับมอบหมาย</li>
+                            </ul>
+                        </div>
+                         <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">เป้าหมาย</h4>
+                            <p class="text-gray-700">เพื่อสนับสนุนการดำเนินงานด้านบัญชีและการเงินขององค์กรให้มีประสิทธิภาพ</p>
+                        </div>
+                    </div>
+                `
+            },
+            logistic: {
+                title: "นักศึกษาฝึกงานฝ่ายโลจิสติกส์",
+                department: "Logistics Intern",
+                imageUrl: "https://img2.pic.in.th/pic/ChatGPT-Image-30-..-2568-17_11_08.png",
+                content: `
+                    <p class="text-lg text-gray-600 mb-6">หัวข้องาน: สนับสนุนงานด้านคลังสินค้า, การวางแผนเรือเทียบท่า, และการบริการลูกค้า</p>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">ข้อมูลการฝึกงาน</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><b>ระยะเวลา:</b> 3–4 เดือน</li>
+                                <li><b>จำนวนที่รับ:</b> 3 คน</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">คุณสมบัติ</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>กำลังศึกษาระดับปริญญาตรี สาขาโลจิสติกส์, การจัดการอุตสาหกรรม หรือสาขาที่เกี่ยวข้อง</li>
+                                <li>มีทักษะการประสานงานและการสื่อสารที่ดีเยี่ยม</li>
+                                <li>สามารถใช้โปรแกรม Microsoft Excel หรือซอฟต์แวร์จัดการข้อมูลเบื้องต้นได้</li>
+                                <li>มีความละเอียดรอบคอบ และสามารถบริหารจัดการเอกสารได้อย่างเป็นระบบ</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">ลักษณะงานและความรับผิดชอบ</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>ตรวจสอบและจัดทำเอกสารสำหรับนำตู้คอนเทนเนอร์เข้า-ออกจากท่าเรือ</li>
+                                <li>ประสานงานกับฝ่ายคลังสินค้าเกี่ยวกับข้อมูลตู้คอนเทนเนอร์</li>
+                                <li>วางแผนและติดตามตารางเรือเข้าเทียบท่าร่วมกับทีม</li>
+                                <li>ให้คำแนะนำเบื้องต้นแก่ลูกค้าเกี่ยวกับการชำระค่าบริการและขั้นตอนเอกสาร</li>
+                                <li>สนับสนุนการดูแลลูกค้าและแก้ไขปัญหาเฉพาะหน้า</li>
+                            </ul>
+                        </div>
+                         <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">เป้าหมาย</h4>
+                            <p class="text-gray-700">เพื่อสนับสนุนงานด้านโลจิสติกส์และบริการลูกค้าให้มีความต่อเนื่องและราบรื่น โดยเฉพาะช่วงเวลาที่มีเรือเข้าเทียบท่าและการบริหารจัดการเอกสารที่เกี่ยวข้อง</p>
+                        </div>
+                    </div>
+                `
+            },
+            engineering: {
+                title: "นักศึกษาฝึกงานฝ่ายวิศวกรรม",
+                department: "Engineering Intern",
+                imageUrl: "https://img2.pic.in.th/pic/ChatGPT-Image-31-..-2568-09_02_34.png",
+                content: `
+                    <p class="text-lg text-gray-600 mb-6">หัวข้องาน: โครงการจัดตั้ง Data Center – สนับสนุนฝ่ายวิศวกรรม</p>
+                     <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">ข้อมูลการฝึกงาน</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><b>ระยะเวลา:</b> 3–4 เดือน</li>
+                                <li><b>จำนวนที่รับ:</b> 1 คน</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">คุณสมบัติ</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>กำลังศึกษาระดับปริญญาตรี สาขาวิศวกรรมศาสตร์ (ทุกสาขา)</li>
+                                <li>มีความสนใจด้านการวิเคราะห์ข้อมูล (Data Analysis)</li>
+                                <li>มีทักษะภาษาอังกฤษในระดับที่สามารถสื่อสารได้</li>
+                                <li>มีความกระตือรือร้น ชอบเรียนรู้สิ่งใหม่ และทำงานเป็นทีมได้</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">ลักษณะงานและความรับผิดชอบ</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>รวบรวมและจัดระเบียบข้อมูลที่เกี่ยวข้องจากแหล่งต่างๆ</li>
+                                <li>วิเคราะห์ข้อมูลเบื้องต้นเพื่อนำไปใช้ในการพัฒนาโครงการ Data Center</li>
+                                <li>สนับสนุนงานด้านข้อมูลให้กับทีมวิศวกร</li>
+                            </ul>
+                        </div>
+                         <div>
+                            <h4 class="font-semibold text-xl text-gray-800 mb-2">เป้าหมาย</h4>
+                            <p class="text-gray-700">เพื่อเป็นส่วนหนึ่งในการสนับสนุนโครงการจัดตั้ง Data Center ของบริษัท และเรียนรู้กระบวนการทำงานในโครงการขนาดใหญ่</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        const mainPage = document.getElementById('main-page');
+        const detailPages = document.getElementById('detail-pages');
+        const detailImage = document.getElementById('detail-image');
+        const detailTextContent = document.getElementById('detail-text-content');
+        const applicationModal = document.getElementById('application-modal');
+        const successModal = document.getElementById('success-modal');
+        const benefitsModal = document.getElementById('benefits-modal');
+        const errorModal = document.getElementById('error-modal');
+        const benefitsButton = document.getElementById('benefits-button');
+        const closeBenefitsButton = document.getElementById('close-benefits-button');
+        const applicationForm = document.getElementById('application-form');
+        const submitButton = document.getElementById('submit-button');
+        const preloader = document.getElementById('preloader');
+
+        window.addEventListener('load', () => {
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500); // Match the transition duration
+        });
+
+        function showDetail(jobKey) {
+            const job = jobDetails[jobKey];
+            if (!job) return;
+
+            detailImage.src = job.imageUrl;
+            detailImage.alt = `ภาพประกอบตำแหน่ง ${job.title}`;
+            
+            detailTextContent.innerHTML = `
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">${job.title}</h2>
+                <h3 class="text-xl text-gray-500 mb-8">${job.department}</h3>
+                ${job.content}
+                <div class="mt-10 text-center">
+                    <button onclick="openApplicationForm('${jobKey}')" class="btn-primary font-bold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-xl transition-shadow">
+                        สมัครฝึกงานตำแหน่งนี้
+                    </button>
+                </div>
+            `;
+            
+            mainPage.classList.add('hidden');
+            detailPages.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function showMainPage() {
+            detailPages.classList.add('hidden');
+            mainPage.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+        
+        function openApplicationForm(jobKey = null) {
+            if (jobKey) {
+                const positionSelect = document.getElementById('position');
+                const positionMap = {
+                    it: 'IT',
+                    accounting: 'Accounting',
+                    logistic: 'Logistic',
+                    engineering: 'Engineering'
+                };
+                positionSelect.value = positionMap[jobKey] || '';
+            }
+            applicationModal.classList.remove('hidden');
+        }
+
+        function closeApplicationForm() {
+            applicationModal.classList.add('hidden');
+            applicationForm.reset();
+        }
+        
+        function showSuccessMessage() {
+            successModal.classList.remove('hidden');
+        }
+        
+        function closeSuccessMessage() {
+            successModal.classList.add('hidden');
+            showMainPage();
+        }
+        
+        function openBenefitsModal() {
+            benefitsModal.classList.remove('hidden');
+        }
+
+        function closeBenefitsModal() {
+            benefitsModal.classList.add('hidden');
+        }
+
+        function showErrorModal(message) {
+            document.getElementById('error-message').textContent = message;
+            errorModal.classList.remove('hidden');
+        }
+        
+        function closeErrorModal() {
+            errorModal.classList.add('hidden');
+        }
+
+        // Event Listeners
+        benefitsButton.addEventListener('click', openBenefitsModal);
+        closeBenefitsButton.addEventListener('click', closeBenefitsModal);
+        document.getElementById('close-error-button').addEventListener('click', closeErrorModal);
+        
+        document.getElementById('close-modal-button').addEventListener('click', closeApplicationForm);
+        
+        submitButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!applicationForm.checkValidity()) {
+                applicationForm.reportValidity();
+                return;
+            }
+
+            // ---!!!สำคัญ!!! กรุณาใส่ Web App URL ของคุณที่ได้จาก Google Apps Script ตรงนี้---
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxs0UM3CKVnZugLKTpLYiRmSwATZBfaPFRyU7tCDSaw2C2eHYB5jDLn_-0dulAg_X4F/exec'; 
+            
+            if (scriptURL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE' || !scriptURL.startsWith('https://script.google.com/macros/s/')) {
+                showErrorModal('ข้อผิดพลาด: กรุณาตั้งค่า Google Apps Script URL ในโค้ดให้ถูกต้องก่อน (ดูขั้นตอนในเอกสารคำแนะนำ)');
+                return;
+            }
+
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>กำลังส่ง...`;
+
+            const formData = new FormData(applicationForm);
+            const data = {};
+            formData.forEach((value, key) => (data[key] = value));
+
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', // ใช้ no-cors เพื่อเลี่ยงปัญหา CORS กับ Apps Script
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                // เนื่องจากใช้ no-cors เราจะไม่สามารถอ่าน response ได้
+                // จึงต้องสมมติว่าสำเร็จหากไม่เกิด network error
+                console.log('Success!', response);
+                closeApplicationForm();
+                showSuccessMessage();
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                showErrorModal('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่อีกครั้ง');
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+            });
+        });
+        
+        document.getElementById('close-success-button').addEventListener('click', closeSuccessMessage);
+
+        // Close modal if clicked outside of the content
+        window.addEventListener('click', (event) => {
+            if (event.target == applicationModal) {
+                closeApplicationForm();
+            }
+            if (event.target == successModal) {
+                closeSuccessMessage();
+            }
+            if (event.target == benefitsModal) {
+                closeBenefitsModal();
+            }
+            if (event.target == errorModal) {
+                closeErrorModal();
+            }
+        });
+
+    </script>
+
+</body>
+</html>
